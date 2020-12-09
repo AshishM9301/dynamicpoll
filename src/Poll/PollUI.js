@@ -1,5 +1,29 @@
 import React, { Component } from "react";
+import { withStyles } from "@material-ui/core/styles";
+import { Button, Grid } from "@material-ui/core";
 
+const useStyles = {
+  root: {
+    borderRadius: "7px",
+
+    background: "#fff",
+    boxShadow: "0px 0px 13px 1px rgba(99,105,222,0.29)",
+  },
+  pollQuestion: {
+    color: "#28385e",
+    width: "100%",
+    height: "2rem",
+    fontSize: "2rem",
+    margin: "1.5rem 0 1rem 0",
+    fontWeight: "600",
+    padding: "0.5rem",
+    textAlign: "center",
+  },
+  flex: {
+    display: "flex",
+    justifyContent: "space-between",
+  },
+};
 class PollUI extends Component {
   state = {
     poll: {
@@ -88,55 +112,44 @@ class PollUI extends Component {
 
     const { poll } = this.state;
 
+    const { classes } = this.props;
+
     return (
       <div>
-        <div>
+        <div className={classes.root}>
           <div
             style={{
-              borderRadius: "7px",
-              padding: "1rem",
-              background: "linear-gradient(90deg, #6369de 0%, #8c92f9 100%)",
-              color: "#fff",
+              padding: "2rem 3rem",
             }}
           >
-            <div
-              style={{
-                background: "inherit",
-
-                border: "0",
-                height: "3rem",
-                padding: "1rem",
-                color: "#ffffff",
-
-                fontSize: "1.25rem",
-              }}
-            >
+            <Grid item className={classes.pollQuestion}>
               {this.props.PollQuestion}
-            </div>
+            </Grid>
             <div
               className="flex"
               style={{
                 flexDirection: "column",
                 justifyContent: "space-around",
+                margin: "1rem 0",
               }}
             >
               {this.props.pollOptions.map((option, index) =>
                 !poll.voted ? (
-                  <button
+                  <Button
+                    variant="contained"
                     style={{
-                      margin: ".15rem 0",
+                      margin: ".5rem 0",
                       display: "flex",
                       justifyContent: "space-between",
-                      border: 0,
-                      padding: "0.25rem 0.25rem",
+                      borderRadius: "9999px",
+                      textAlign: "left",
                       background: "#fff",
-                      borderRadius: "7px",
-                      appearance: "none",
-                      outline: "2px solid transparent",
-                      outlineOffset: "2px",
+                      boxShadow: "inset 0px 0px 98px 1px rgba(99,105,222,0.29)",
+                      width: "100%",
+                      fontWeight: "700",
                     }}
                     key={index}
-                    className="button-data"
+                    className="button"
                     onClick={(event) => onClickButton(option, event)}
                   >
                     <div
@@ -170,7 +183,7 @@ class PollUI extends Component {
                       {option}
                     </div>
                     <div></div>
-                  </button>
+                  </Button>
                 ) : (
                   <div
                     style={{
@@ -220,8 +233,10 @@ class PollUI extends Component {
                 )
               )}
             </div>
-            <div>Member Choose Nothing : {this.props.memberUnSelcted}</div>
-            <div>Member Choose Some Thing: {this.props.memberSelcted}</div>
+            <div className={classes.flex}>
+              <div>Not Participated : {this.props.memberUnSelcted}</div>
+              <div>Participated: {this.props.memberSelcted}</div>
+            </div>
           </div>
         </div>
       </div>
@@ -229,4 +244,4 @@ class PollUI extends Component {
   }
 }
 
-export default PollUI;
+export default withStyles(useStyles)(PollUI);

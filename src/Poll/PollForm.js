@@ -1,15 +1,81 @@
+import { Button, InputBase } from "@material-ui/core";
 import React, { useState } from "react";
+import { makeStyles } from "@material-ui/core/styles";
+
 import PollUI from "./PollUI";
 
+import "../assets/style.css";
+
+const useStyles = makeStyles({
+  buttonColor: {
+    background: "#3f51b5c9",
+    color: "#fff",
+    fontWeight: "800",
+    fontSize: "1rem",
+  },
+  input: {
+    color: "#28385e",
+    width: "100%",
+    height: "2rem",
+    fontSize: "2rem",
+    margin: "1.5rem 0 1rem 0",
+    fontWeight: "600",
+    padding: "0.5rem",
+    textAlign: "center",
+  },
+  options: {
+    height: "1.5rem",
+    padding: "1rem",
+    width: "100%",
+    flex: "0.8",
+  },
+  optionBox: {
+    borderRadius: "9999px",
+    display: "flex",
+    width: "100%",
+    margin: "0.75rem 0",
+    background: "#fff",
+    boxShadow: "inset 0px 0px 98px 1px rgba(99,105,222,0.29)",
+  },
+  optionInput: {
+    margin: "0.5rem",
+    width: "100%",
+    alignSelf: "center",
+    color: "#2a3da7",
+  },
+  optionBoxCircle1: {
+    position: "relative",
+    alignSelf: "center",
+    width: "2.2rem",
+    height: "2rem",
+    borderRadius: "9999px",
+    background: "#fff",
+    textAlign: "center",
+    margin: ".75rem",
+  },
+  optionBoxCircle2: {
+    position: "absolute",
+    alignSelf: "center",
+    width: "1.5rem",
+    height: "1.5rem",
+    borderRadius: "100%",
+    background: "linear-gradient(90deg, #6369de 0%, #8c92f9 100%)",
+    textAlign: "center",
+    top: "12.5%",
+    left: "12.5%",
+  },
+});
+
 function PollForm() {
+  const classes = useStyles();
   const [PollName, setPollName] = useState("");
   const [Option, setOption] = useState([{ value: "" }, { value: "" }]);
   const [PollStarted, setPollStarted] = useState(false);
 
   const onFormNameChange = (e) => {
-    const { name, value } = e.target;
+    const { value } = e.target;
 
-    setPollName({ [name]: value });
+    setPollName(value);
   };
 
   const onOptionChange = (index, event) => {
@@ -32,133 +98,91 @@ function PollForm() {
   return (
     <div>
       {PollStarted ? (
-        <PollUI PollQuestion={PollName.pollName} pollOptions={Option} />
+        <PollUI PollQuestion={PollName} pollOptions={Option} />
       ) : (
         <div>
-          <div>
+          <div
+            style={{
+              borderRadius: "7px",
+
+              background: "#fff",
+              boxShadow: "0px 0px 13px 1px rgba(99,105,222,0.29)",
+            }}
+          >
             <div
               style={{
-                borderRadius: "7px",
-                padding: "1rem",
-                background: "linear-gradient(90deg, #6369de 0%, #8c92f9 100%)",
+                padding: "2rem 3rem",
               }}
             >
-              <div style={{ display: "flex", justifyContent: "center" }}>
-                <button
-                  style={{
-                    borderRadius: "7px",
-                    border: "0",
-                    margin: "0 0.25rem",
-                    padding: "1rem",
-                  }}
-                >
-                  Schedule poll
-                </button>{" "}
-                <button
-                  onClick={onClickPollStarted}
-                  style={{
-                    borderRadius: "7px",
-                    border: "0",
-                    margin: "0 0.25rem",
-                    padding: "1rem",
-                  }}
-                >
-                  Poll Now
-                </button>
-              </div>
-
-              <div>
-                <input
-                  style={{
-                    background: "inherit",
-
-                    border: "0",
-                    height: "3rem",
-                    padding: "1rem",
-                    color: "#ffffff",
-                    width: "100%",
-                    appearance: "none",
-                    outline: "2px solid transparent",
-                    outlineOffset: "2px",
-                    fontSize: "1rem",
-                  }}
-                  name="pollName"
-                  placeholder="Poll Question"
+              <div className="border-color color-white">
+                <InputBase
+                  className={classes.input}
                   onChange={onFormNameChange}
-                  className="input"
+                  placeholder="Poll Question"
+                  fullWidth
+                  multiline
+                  required
+                  rowsMax={3}
                 />
               </div>
               {Option.map((option, index) => (
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    margin: "0.75rem 0",
-                    background: "#fff",
-                    borderRadius: "7px",
-                  }}
-                  key={index}
-                >
-                  <div
-                    style={{
-                      position: "relative",
-                      alignSelf: "center",
-                      width: "2rem",
-                      height: "2rem",
-                      borderRadius: "100%",
-                      background:
-                        "linear-gradient(90deg, #6369de 0%, #8c92f9 100%)",
-                      textAlign: "center",
-                      margin: ".75rem",
-                    }}
-                  >
-                    <div
-                      style={{
-                        position: "absolute",
-                        alignSelf: "center",
-                        width: "1.5rem",
-                        height: "1.5rem",
-                        borderRadius: "100%",
-                        background: "#fff",
-                        textAlign: "center",
-                        top: "12.5%",
-                        left: "12.5%",
-                      }}
-                    ></div>
+                <div className={classes.optionBox} key={index}>
+                  <div className={classes.optionBoxCircle1}>
+                    <div className={classes.optionBoxCircle2}></div>
                   </div>
-                  <input
-                    style={{
-                      borderRadius: "7px",
-                      border: "0",
-                      height: "1.5rem",
-                      padding: "1rem",
-                      width: "100%",
-                      appearance: "none",
-                      outline: "2px solid transparent",
-                      outlineOffset: "2px",
-                    }}
-                    name={`option${option}`}
-                    value={option.value}
-                    onChange={(event) => {
-                      onOptionChange(index, event);
-                    }}
-                    placeholder="Write Your Options"
-                  />
+                  <div className={classes.optionInput}>
+                    <InputBase
+                      name={`option${option}`}
+                      value={option.value}
+                      onChange={(event) => {
+                        onOptionChange(index, event);
+                      }}
+                      style={{ width: "100%", fontWeight: "700" }}
+                      placeholder="Write Your Options"
+                    />
+                  </div>
                 </div>
               ))}
               <div style={{ display: "flex", justifyContent: "center" }}>
-                <button
-                  onClick={onOptionClick}
-                  style={{
-                    borderRadius: "7px",
-                    border: "0",
-
-                    padding: "1rem",
-                  }}
-                >
+                <Button onClick={onOptionClick} variant="contained">
                   Add Options
-                </button>
+                </Button>
               </div>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginTop: "1rem",
+              }}
+            >
+              <Button
+                variant="contained"
+                style={{
+                  margin: "0 auto",
+                  padding: "1.5rem",
+                  borderRadius: "0 4px 0 0",
+                  fontWeight: "800",
+                  fontSize: "1rem",
+                }}
+                fullWidth
+              >
+                Schedule poll
+              </Button>{" "}
+              <Button
+                onClick={onClickPollStarted}
+                variant="contained"
+                className={classes.buttonColor}
+                color="primary"
+                style={{
+                  margin: "0 auto",
+                  padding: "1.5rem",
+                  borderRadius: "0 0 4px 0",
+                }}
+                fullWidth
+              >
+                Poll Now
+              </Button>
             </div>
           </div>
         </div>

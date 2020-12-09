@@ -70,8 +70,8 @@ class PollUI extends Component {
 
   render() {
     const onClickButton = (option, event) => {
-      const { PollQuestion, onVote, noStorage } = this.props;
-      const { poll, StoragePolls } = this.state;
+      const { PollQuestion, noStorage } = this.props;
+      const { StoragePolls } = this.state;
       event.preventDefault();
       console.log(option);
       if (!noStorage) {

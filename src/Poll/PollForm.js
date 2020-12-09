@@ -1,12 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import PollUI from "./PollUI";
 
 function PollForm() {
   const [PollName, setPollName] = useState("");
   const [Option, setOption] = useState([{ value: "" }, { value: "" }]);
-  const [OptionNO, setOptionNO] = useState(3);
-  const [Options, setOptions] = useState([1, 2]);
-  const [OptionData, setOptionData] = useState([]);
   const [PollStarted, setPollStarted] = useState(false);
 
   const onFormNameChange = (e) => {

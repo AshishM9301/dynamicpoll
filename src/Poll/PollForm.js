@@ -73,6 +73,7 @@ function PollForm() {
   const [Option, setOption] = useState([{ value: "" }, { value: "" }]);
   const [PollStarted, setPollStarted] = useState(false);
   const [StartPoll, setStartPoll] = useState(false);
+  const [Poll, setPoll] = useState(false);
 
   const onFormNameChange = (e) => {
     const { value } = e.target;
@@ -99,9 +100,7 @@ function PollForm() {
 
   if (!StartPoll) {
     if (PollName) {
-      console.log("Hello");
       if (Option[1].value !== "") {
-        console.log("Hii");
         setStartPoll(!StartPoll);
       }
     }

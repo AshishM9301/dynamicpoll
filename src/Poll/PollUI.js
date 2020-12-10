@@ -187,7 +187,7 @@ class PollUI extends Component {
                 ) : (
                   <div
                     style={{
-                      margin: ".15rem 0",
+                      margin: "1rem 0 0 0",
                       display: "flex",
                       justifyContent: "space-between",
                       border: 0,
@@ -210,22 +210,32 @@ class PollUI extends Component {
                       <div
                         className="fill"
                         style={{
+                          borderRadius: "9999px",
                           width: `${this.calculatePer(option)}%`,
-                          backgroundColor: "#6D4B943B",
+                          background: "#fff",
+                          boxShadow:
+                            "inset 0px 0px 98px 1px rgba(99,105,222,0.29)",
                         }}
                       />
-                      <div className="labels">
-                        <span
-                          className="percent"
-                          style={{ color: "#6D4B94", margin: "0 1.25rem" }}
-                        >
-                          {this.calculatePer(option)}
-                        </span>
+                      <div
+                        className="labels"
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          width: "100%",
+                        }}
+                      >
                         <span
                           className="answer vote"
                           style={{ color: "#6D4B94" }}
                         >
                           {option}
+                        </span>
+                        <span
+                          className="percent"
+                          style={{ color: "#6D4B94", margin: "0 1.25rem" }}
+                        >
+                          {this.calculatePer(option)}
                         </span>
                       </div>
                     </div>

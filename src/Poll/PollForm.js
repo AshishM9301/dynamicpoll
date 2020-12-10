@@ -68,9 +68,11 @@ const useStyles = makeStyles({
 
 function PollForm() {
   const classes = useStyles();
+
   const [PollName, setPollName] = useState("");
   const [Option, setOption] = useState([{ value: "" }, { value: "" }]);
   const [PollStarted, setPollStarted] = useState(false);
+  const [StartPoll, setStartPoll] = useState(false);
 
   const onFormNameChange = (e) => {
     const { value } = e.target;
@@ -94,6 +96,16 @@ function PollForm() {
     setPollStarted(true);
     console.log(Option);
   };
+
+  if (!StartPoll) {
+    if (PollName) {
+      console.log("Hello");
+      if (Option[1].value !== "") {
+        console.log("Hii");
+        setStartPoll(!StartPoll);
+      }
+    }
+  }
 
   return (
     <div>
@@ -180,6 +192,7 @@ function PollForm() {
                   borderRadius: "0 0 4px 0",
                 }}
                 fullWidth
+                disabled={StartPoll ? false : true}
               >
                 Poll Now
               </Button>

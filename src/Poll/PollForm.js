@@ -73,7 +73,6 @@ function PollForm() {
   const [Option, setOption] = useState([{ value: "" }, { value: "" }]);
   const [PollStarted, setPollStarted] = useState(false);
   const [StartPoll, setStartPoll] = useState(false);
-  const [Poll, setPoll] = useState(false);
 
   const onFormNameChange = (e) => {
     const { value } = e.target;
